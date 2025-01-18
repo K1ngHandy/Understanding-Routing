@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 
 const style = {
   margin: '1rem',
@@ -15,7 +15,19 @@ function Cats(props) {
 }
 
 function About(props) {
-  return <h2 style={{ ...style, borderColor: 'green' }}>About Screen</h2>
+  return <h2 style={{ ...style, borderColor: 'green' }}>
+    About Screen
+    <button onClick={() => props.navigate('/more')}>More Details</button>
+  </h2>
+}
+
+function More(props) {
+  const navigate = useNavigate();
+
+  return <h2 style={{ ...style, borderColor: 'orange' }}>
+    More Details Screen
+    <button onClick={() => navigate(-1)}>Back</button>
+  </h2>
 }
 
 export default function App() {
@@ -31,6 +43,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="cats" element={<Cats />} />
         <Route path="about" element={<About />} />
+        <Route path="more" element={<More />} />
       </Routes>
     </BrowserRouter>
   )
